@@ -19,7 +19,6 @@ public class PlayerWalkState : PlayerState
 
     public override void StateEnter(PlayerController playerController)
     {
-        Debug.Log("Entering Walk State");
         this.playerController = playerController;
         animator.SetTrigger(WALK);
     }

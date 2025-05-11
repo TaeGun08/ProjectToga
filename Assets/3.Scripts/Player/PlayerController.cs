@@ -50,10 +50,8 @@ public class PlayerController : MonoBehaviour
             playerStatesDic.Add(state.Name, state);
             state.gameObject.SetActive(false);
         }
-
-        currentState = states[0];
-        currentState.StateEnter(this);
-        states[0].gameObject.SetActive(true);
+        
+        ChangeState(PlayerState.StateName.Idle);
         
         currentWeapon = weapons[0];
     }
@@ -71,13 +69,15 @@ public class PlayerController : MonoBehaviour
             abilitySystem.IsOpenStore || 
             gameManager.IsGameEnd ||
             gameManager.IsOptionOpen) return;
-        
+
         currentState.StateUpdate();
     }
 
     public void ChangeState(PlayerState.StateName changeState)
     {
-        currentState.StateExit();
+        if (currentState != null)
+            currentState.StateExit();
+        
         currentState = playerStatesDic[changeState];
         currentState.gameObject.SetActive(true);
         currentState.StateEnter(this);
